@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  lang-app-front:
+    build:
+      context: .
+      target: front-nginx
+    restart: unless-stopped
+    ports:
+      - "4200:80"
