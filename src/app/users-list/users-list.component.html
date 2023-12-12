@@ -1,0 +1,11 @@
+<div *ngIf="(users$ | async) as users; else loading">
+  <ul>
+    <li *ngFor="let user of users">
+      {{ user.name }} - {{ user.email }} - {{ user.verified ? 'Verified' : 'Not Verified' }}
+    </li>
+  </ul>
+</div>
+<ng-template #loading>
+  Loading users...
+</ng-template>
+
