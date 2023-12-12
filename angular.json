@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "iron-frontend:build:production"
+              "buildTarget": "iron-frontend:build:production"
             },
             "development": {
-              "browserTarget": "iron-frontend:build:development"
+              "buildTarget": "iron-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "iron-frontend:build"
+            "buildTarget": "iron-frontend:build"
           }
         },
         "test": {
