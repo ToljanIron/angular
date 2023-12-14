@@ -1,0 +1,14 @@
+<mat-card>
+  <div [hidden]="message.required">
+    <div [hidden]="!showColor" style="color: green; padding: 8px 8px">
+      <strong>
+        {{message}}
+      </strong>
+    </div>
+    <div [hidden]="showColor" style="color: red; padding: 8px 8px">
+      <strong>
+        {{message}}
+      </strong>
+    </div>
+  </div>
+</mat-card>

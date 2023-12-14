@@ -7,3 +7,8 @@ export const selectUsers = createSelector(
   selectUserState,
   (state: UserState) => state.users
 );
+
+export const selectUsersPagination = createSelector(
+  selectUserState,
+  (state: UserState) => state.pagination
+);

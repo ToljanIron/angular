@@ -1,5 +1,15 @@
-<a routerLink="/">Home</a>
-<a routerLink="/login">Login</a>
-<a routerLink="/register">Register</a>
-<a routerLink="/list-users">List Users</a>
+<mat-toolbar color="secondary">
+  <mat-nav-list>
+    <div class="navbar">
+      <button mat-raised-button routerLink="/">Home</button>
+      <button mat-raised-button routerLink="/dashboard">Dashboard</button>
+      <button mat-raised-button routerLink="/list-users">List Users</button>
+
+      <button mat-raised-button routerLink="/login" [hidden]="authService.checkAuthToken">Login</button>
+      <button mat-raised-button routerLink="/register" [hidden]="authService.checkAuthToken">Register</button>
+
+      <button mat-raised-button (click)="authService.logout()" [hidden]="!authService.checkAuthToken">Logout</button>
+    </div>
+  </mat-nav-list>
+</mat-toolbar>
 <router-outlet></router-outlet>

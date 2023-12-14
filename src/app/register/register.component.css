@@ -1,0 +1,18 @@
+
+.mat-form-field, for {
+  width: 1000px;
+}
+mat-card-title,
+mat-card-content {
+  display: block;
+  text-align: center;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.block {
+  padding-bottom: 4px;
+}

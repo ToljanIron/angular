@@ -4,7 +4,8 @@ import {Store} from "@ngrx/store";
 import {loadUsers} from "../actions/user.actions";
 import {UserState} from "../reducers/user.reducer";
 import {Observable} from "rxjs";
-import { selectUsers } from "../selectors/user.selectors";
+import {selectUsers, selectUsersPagination} from "../selectors/user.selectors";
+import {Pagination} from "../models/pagination.model";
 
 
 @Component({
@@ -13,13 +14,38 @@ import { selectUsers } from "../selectors/user.selectors";
   styleUrl: './users-list.component.css'
 })
 export class UsersListComponent implements OnInit {
-  users$: Observable<User[]> = new Observable<User[]>();
+  user$: Observable<User[]> = new Observable<User[]>();
+  pagination$: Observable<Pagination> = new Observable<Pagination>();
+  currentPage = 0;
+  lastPage = 0;
+  constructor(private store: Store<UserState>) {
 
-  constructor(private store: Store<UserState>) {}
-
-  ngOnInit() {
-    this.store.dispatch(loadUsers());
-    this.users$ = this.store.select(selectUsers);
   }
 
+  ngOnInit() {
+    this.loadUsers(this.currentPage);
+    this.user$ = this.store.select(selectUsers);
+    this.pagination$ = this.store.select(selectUsersPagination);
+    this.loadUsersSuccessSubscription();
+  }
+
+  loadUsers(page: number) {
+    this.store.dispatch(loadUsers({ page }));
+  }
+  onScroll() {
+    this.currentPage++;
+    if (this.currentPage <= this.lastPage) {
+      this.loadUsers(this.currentPage);
+    }
+  }
+
+  loadUsersSuccessSubscription() {
+    this.user$.subscribe((user) => {
+      console.log(user);
+    });
+    this.pagination$.subscribe((pagination) => {
+      this.currentPage = pagination.current_page;
+      this.lastPage = pagination.last_page;
+    });
+  }
 }

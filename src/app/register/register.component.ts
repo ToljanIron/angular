@@ -1,7 +1,15 @@
-import { Component } from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
-import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroupDirective, NgForm, Validators} from "@angular/forms";
+import {AuthService} from "../services/auth.service";
+import {ErrorStateMatcher} from "@angular/material/core";
+import {timestamp} from "rxjs";
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-register-component',
@@ -9,8 +17,14 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  protected url: string = environment.apiUrl;
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  success:any;
+  matcher = new MyErrorStateMatcher();
+
+  @Input() error: string | null = null;
+
+  @Output() submitEM = new EventEmitter();
+
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   registerForm = this.fb.group({
       name: this.fb.control('', Validators.compose([Validators.required, Validators.minLength(3)])),
@@ -19,28 +33,11 @@ export class RegisterComponent {
       password_confirmation: this.fb.control('', Validators.compose([Validators.required, Validators.minLength(8),Validators.pattern('^(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]+$')]))
   });
 
-  onSubmit() {
+  async onSubmit() {
     try {
-      const formData = this.registerForm.value;
-
-      return new Promise((resolve, reject) => {
-        this.http.post<any>(this.url + '/register', formData)
-          .subscribe(
-            (response) => {
-              // Обработка успешного ответа
-              console.log('Registration successful:', response);
-              resolve(response);
-            },
-            (error) => {
-              // Обработка ошибки
-              console.error('Registration failed:', error);
-              reject(error);
-            }
-          );
-      });
+      this.success =  await this.authService.register(this.registerForm);
     } catch (error) {
       console.log(error);
-      return null;
     }
   }
 }

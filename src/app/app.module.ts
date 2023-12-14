@@ -9,12 +9,19 @@ import { LoginComponent } from './login/login.component';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import {ReactiveFormsModule} from "@angular/forms";
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule, provideHttpClient, withInterceptors} from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import {userReducer} from "./reducers/user.reducer";
 import {UsersListComponent} from "./users-list/users-list.component";
 import {UserEffects} from "./effects/user.effects";
 import {EffectsModule} from "@ngrx/effects";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MaterialModule} from "./material/material.module";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {bearerInterceptor} from "./interceptors/bearer.interceptor";
+import {EmailVerificationComponent} from "./email-verification/email-verification.component";
+import {Error404Component} from "./error404/error404.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +29,10 @@ import {EffectsModule} from "@ngrx/effects";
     IndexComponent,
     RegisterComponent,
     LoginComponent,
-    UsersListComponent
+    UsersListComponent,
+    DashboardComponent,
+    EmailVerificationComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
@@ -33,9 +43,17 @@ import {EffectsModule} from "@ngrx/effects";
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot({users: userReducer}),
-    EffectsModule.forRoot([UserEffects])
+    EffectsModule.forRoot([UserEffects]),
+    BrowserAnimationsModule,
+    MaterialModule,
+    InfiniteScrollModule
   ],
-  providers: [UserEffects],
-  bootstrap: [AppComponent]
+  providers: [
+    UserEffects,
+    provideHttpClient(
+      withInterceptors([bearerInterceptor])
+    )],
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

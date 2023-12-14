@@ -1,11 +1,37 @@
-<div *ngIf="(users$ | async) as users; else loading">
-  <ul>
-    <li *ngFor="let user of users">
-      {{ user.name }} - {{ user.email }} - {{ user.verified ? 'Verified' : 'Not Verified' }}
-    </li>
-  </ul>
-</div>
+<table mat-table [dataSource]="user$" class="mat-elevation-z8"
+       infiniteScroll
+       [infiniteScrollDistance]="1"
+       [infiniteScrollThrottle]="50"
+       (scrolled)="onScroll()">
+
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let user; let i = index"> {{i + 1}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="verified">
+    <th mat-header-cell *matHeaderCellDef> Verified </th>
+    <td mat-cell *matCellDef="let user"> {{user.verified ? 'Yes' : 'No'}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="created">
+    <th mat-header-cell *matHeaderCellDef> Created </th>
+    <td mat-cell *matCellDef="let user"> {{user.created}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['position', 'name', 'email', 'verified', 'created']"></tr>
+  <tr mat-row *matRowDef="let user; columns: ['position', 'name', 'email', 'verified', 'created']"></tr>
+</table>
 <ng-template #loading>
   Loading users...
 </ng-template>
-

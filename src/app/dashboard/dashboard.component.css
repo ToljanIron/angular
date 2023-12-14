@@ -1,8 +1,13 @@
-
-mat-card-title,
-mat-card-content {
+.question {
   display: block;
+  justify-content: center;
   text-align: center;
+}
+:host {
+  display: block;
+  width: 35vw;
+  justify-content: center;
+  justify-items: center;
 }
 
 .error {
@@ -16,3 +21,4 @@ mat-card-content {
   display: flex;
   justify-content: flex-end;
 }
+
