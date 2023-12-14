@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {of, from, mergeMap, withLatestFrom} from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 import * as userActions from '../actions/user.actions';
 import {select} from "@ngrx/store";
 import {selectUsersPagination} from "../selectors/user.selectors";

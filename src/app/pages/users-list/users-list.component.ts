@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../models/user.model";
+import {User} from "../../core/models/user.model";
 import {Store} from "@ngrx/store";
-import {loadUsers} from "../actions/user.actions";
-import {UserState} from "../reducers/user.reducer";
+import {loadUsers} from "../../core/ngrx/actions/user.actions";
+import {UserState} from "../../core/ngrx/reducers/user.reducer";
 import {Observable} from "rxjs";
-import {selectUsers, selectUsersPagination} from "../selectors/user.selectors";
-import {Pagination} from "../models/pagination.model";
+import {selectUsers, selectUsersPagination} from "../../core/ngrx/selectors/user.selectors";
+import {Pagination} from "../../core/models/pagination.model";
 
 
 @Component({

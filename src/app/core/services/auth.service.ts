@@ -1,6 +1,6 @@
 import {catchError, Observable, throwError} from "rxjs";
 import {UntypedFormGroup, ValidationErrors} from "@angular/forms";
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 
 import { Injectable } from '@angular/core';

@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import {User} from "../models/user.model";
+import {User} from "../../models/user.model";
 import {loadUsers, loadUsersFailure, loadUsersSuccess} from "../actions/user.actions";
-import {Pagination} from "../models/pagination.model";
+import {Pagination} from "../../models/pagination.model";
 
 export interface UserState {
   users: User[];

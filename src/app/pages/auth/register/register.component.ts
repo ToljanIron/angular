@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroupDirective, NgForm, Validators} from "@angular/forms";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../../core/services/auth.service";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {timestamp} from "rxjs";
 
